@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { Container, PizzaBuild, PlaceOrder } from "./PizzaFormStyled";
 
 import PizzaInput from "./PizzaInput";
@@ -29,11 +30,19 @@ function BuildPizzaHeader( props )
 
 export default function( props )
 {
+    const history = useHistory();
+
+    const onSubmit = e => 
+    {
+        e.preventDefault();
+        history.push( "/order" );
+    };
+
     return(
         <Container>
 
             <Top />
-            <form onSubmit = { props.onSubmit } >
+            <form onSubmit = { onSubmit } >
                 <PizzaBuild>
                     <BuildPizzaHeader header = "Personal Information" error = "" />
 

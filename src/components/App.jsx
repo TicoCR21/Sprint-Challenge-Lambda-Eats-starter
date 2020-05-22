@@ -20,8 +20,6 @@ export default function()
   const [ submit, setSubmit ] = useState( false );
   const [ errors, setErrors ] = useState( initialErrors )
   
-  console.log( "Form =>", form );
-
   const onChange = e => 
   {
     const name = e.target.name;
@@ -40,7 +38,8 @@ export default function()
 
   const onSubmit = e => 
   {
-    //e.preventDefault();
+   e.preventDefault();
+   console.log( form );
   };
 
   useEffect( () => {
@@ -54,10 +53,7 @@ export default function()
         <Header />
 
         <Switch>
-          <Route path = "/" exact>
-            <Home />
-          </Route>
-
+          
           <Route path = "/pizza">
             <PizzaForm 
               form           = { form           }
@@ -68,6 +64,26 @@ export default function()
               checkboxChange = { checkboxChange } 
             />
           </Route>
+
+          <Route path = "/order" exact>
+            <div>
+              <h2> Name:  { form.name                } </h2>
+              <h2> Email: { form.email               } </h2>
+              <h2> Size:  { form.size                } </h2>
+              <h2> Sauce: { form.sauce               } </h2>
+              <h2> Instructions: { form.specialInstructions } </h2>
+
+              <br/>
+              <h2>Toppings Below</h2>
+              { Object.keys( form[ "toppings" ] ).filter( topping => { return form.toppings[  topping  ]  === true } ) }
+
+            </div>
+          </Route>
+
+          <Route path = "/" exact>
+            <Home />
+          </Route>
+
         </Switch>
       </BrowserRouter>
     </>
